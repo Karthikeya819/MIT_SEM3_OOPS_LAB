@@ -7,8 +7,8 @@ the main
 
 import java.util.*;
 
-class PushException extends Exception{String toString(){return "Stack is Full!";}}
-class PopException extends Exception{String toString(){return "Stack is Empty!";}}
+class PushException extends Exception{String tostring(){return "Stack is Full!";}}
+class PopException extends Exception{String tostring(){return "Stack is Empty!";}}
 
 class Stack{
     int Arr[];
@@ -39,11 +39,11 @@ class q1{
             stack.push(10);
             stack.push(20);
             stack.push(20);
-            int _ = stack.pop();
+            int _temp = stack.pop();
         }catch(PushException e){
-            System.out.println(e);
+            System.out.println(e.tostring());
         }catch(PopException e){
-            System.out.println(e);
+            System.out.println(e.tostring());
         }
     }
 }
