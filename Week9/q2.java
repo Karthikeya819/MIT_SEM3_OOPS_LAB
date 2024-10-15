@@ -36,9 +36,9 @@ class q2{
 			}
 		}
 		int Sum = 0;
-		RowSum thrs[] = new RowSum[n];
-		for(int i=0;i<n;i++)thrs[i] = new RowSum(Matrix,i);
-		for(int i=0;i<n;i++){
+		RowSum thrs[] = new RowSum[m];
+		for(int i=0;i<m;i++)thrs[i] = new RowSum(Matrix,i);
+		for(int i=0;i<m;i++){
 			try{
 				thrs[i].thr.join();
 				Sum+=thrs[i].sum;
