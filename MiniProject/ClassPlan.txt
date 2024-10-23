@@ -1,0 +1,22 @@
+Controller
+    String Controller_Name - Stores name of Controller
+    boolean State - Stores Status of Controller On - True Off - False
+    int Current_Sate - Holds Current State on Controller
+    String[] State_Dessciption - Holds Mapping of int to Physical Existance
+    String Current_Sate_Description() - Returns Current_Sate_Description
+    void Toogle_State() - Toogles State of Controller
+
+LightController extends Controller
+    static int Light_Count - Holds the count of Total Lights Created to give Name to Next Light
+    super.State_Dessciption - Initialize values A/c to Sub class Req
+
+FanController extends Controller
+    static int Fan_Count - Holds the count of Total Fans Created to give Name to Next Fan
+    super.State_Dessciption - Initialize values A/c to Sub class Req
+
+Room
+    final static int Max_Capacity - Holds Max_Capacity of Controllers a room can have
+    String Room_Name - Holds Room Name
+    Controller Controllers[] - Array of Controllers in a Room
+    int Controllers_Count - Holds No of Controllers in a Room
+    void Add_Controller(Controller item) - Add a Controller to a Room
