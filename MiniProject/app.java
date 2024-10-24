@@ -18,52 +18,25 @@ public class app extends Application{
     public void start(Stage mystage) throws Exception{
         FlowPane flowpane = new FlowPane();
         Scene myscene = new Scene(flowpane,900,300);
-        //VBox group1 = new VBox(10);
-        //group1.getChildren().addAll(new Label("Room 1"),new Button("Button 1"),new Button("Button 2"));
-        //group1.setAlignment(Pos.TOP_CENTER);
-        // VBox vb1 = new VBox(5);
-        // String states[] = {"Low","Medium","High"};
-        // ComboBox cb1 = new ComboBox(FXCollections.observableArrayList(states));
-        // cb1.setVisible(false);
-        // Button bt1 = new Button("OFF");
-        // Label l2 = new Label("Light1 is Off");
-        // bt1.setOnAction(event->{
-        //     cb1.setVisible(!cb1.isVisible());
-        //     bt1.setText("ON");
-        //     l2.setText("Light1 is On,Brightness: "+cb1.getValue());
-        // });
-        // cb1.setOnAction(event->{
-        //     l2.setText("Light1 is On,Brightness: "+cb1.getValue());
-        // });
-        // VBox vb11 = new VBox(5);
-        // vb11.setAlignment(Pos.TOP_CENTER);
-        // vb11.getChildren().addAll(bt1,cb1,l2);
-        // vb1.getChildren().addAll(new Label("Light 1:"),vb11);
-        VBox vb1 = new VBox(20);
-        Label lb1 = new Label("Room 1:");
-        LightController lc1 = new LightController();
-        FanController fc2 = new FanController();
-        vb1.getChildren().addAll(lb1,lc1.getLayout(),fc2.getLayout());
-        vb1.setPadding(new Insets(10,0,0,20));
-        
+        mystage.setTitle("Home Automation System");
 
-        VBox vb2 = new VBox(20);
-        Label lb2 = new Label("Room 2:");
-        LightController lc2 = new LightController();
-        FanController fc3 = new FanController();
-        vb2.getChildren().addAll(lb2,lc2.getLayout(),fc3.getLayout());
-        vb2.setPadding(new Insets(10,0,0,100));
+        Room room1 = new Room("Kitchen");
+        room1.Add_Controller(new LightController());
+        room1.Add_Controller(new FanController());
+        VBox vb1 = room1.getLayout();
 
-        VBox vb3 = new VBox(20);
-        Label lb3 = new Label("Room 3:");
-        LightController lc3 = new LightController();
-        FanController fc4 = new FanController();
-        vb3.getChildren().addAll(lb3,lc3.getLayout(),fc4.getLayout());
-        vb3.setPadding(new Insets(10,0,0,100));
+        Room room2 = new Room("Bed Room");
+        room2.Add_Controller(new LightController());
+        room2.Add_Controller(new FanController());
+        VBox vb2 = room2.getLayout();
 
-        HBox hb1 = new HBox();
+        Room room3 = new Room("Hall");
+        room3.Add_Controller(new LightController());
+        room3.Add_Controller(new FanController());
+        VBox vb3 = room3.getLayout();
+
+        HBox hb1 = new HBox(80);
         hb1.getChildren().addAll(vb1,vb2,vb3);
-        //hb1.setPadding(new Insets(50));
 
         flowpane.getChildren().addAll(hb1);
         mystage.setScene(myscene);
@@ -79,6 +52,7 @@ class Controller{
         this.Controller_Name = Controller_Name;
         this.State_Dessciption = State_Dessciption;
     }
+    VBox getLayout(){return new VBox();}
 }
 class LightController extends Controller{
     static int Light_Count = 0;
@@ -107,6 +81,7 @@ class LightController extends Controller{
         vb11.getChildren().addAll(bt1,cb1,l2);
         vb1.getChildren().addAll(new Label(Controller_Name+":"),vb11);
         vb1.setPadding(new Insets(0,0,0,50));
+        vb1.setMinWidth(200);
         return vb1;
     }
 }
@@ -137,6 +112,7 @@ class FanController extends Controller{
         vb11.getChildren().addAll(bt1,cb1,l2);
         vb1.getChildren().addAll(new Label(Controller_Name+":"),vb11);
         vb1.setPadding(new Insets(0,0,0,50));
+        vb1.setMinWidth(200);
         return vb1;
     }
 }
@@ -151,5 +127,15 @@ class Room{
     }
     void Add_Controller(Controller item){
         Controllers[Controllers_Count++] = item;
+    }
+    VBox getLayout(){
+        VBox vb1 = new VBox(20);
+        Label lb1 = new Label(Room_Name);
+        vb1.getChildren().add(lb1);
+        for(int i = 0;i<Controllers_Count;i++){
+            vb1.getChildren().add(Controllers[i].getLayout());
+        }
+        vb1.setPadding(new Insets(10,0,0,20));
+        return vb1;
     }
 }
