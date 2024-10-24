@@ -17,7 +17,7 @@ public class app extends Application{
     @Override
     public void start(Stage mystage) throws Exception{
         FlowPane flowpane = new FlowPane();
-        Scene myscene = new Scene(flowpane,600,600);
+        Scene myscene = new Scene(flowpane,900,300);
         //VBox group1 = new VBox(10);
         //group1.getChildren().addAll(new Label("Room 1"),new Button("Button 1"),new Button("Button 2"));
         //group1.setAlignment(Pos.TOP_CENTER);
@@ -40,10 +40,32 @@ public class app extends Application{
         // vb11.getChildren().addAll(bt1,cb1,l2);
         // vb1.getChildren().addAll(new Label("Light 1:"),vb11);
         VBox vb1 = new VBox(20);
+        Label lb1 = new Label("Room 1:");
         LightController lc1 = new LightController();
         FanController fc2 = new FanController();
-        vb1.getChildren().addAll(lc1.getLayout(),fc2.getLayout());
-        flowpane.getChildren().addAll(vb1);
+        vb1.getChildren().addAll(lb1,lc1.getLayout(),fc2.getLayout());
+        vb1.setPadding(new Insets(10,0,0,20));
+        
+
+        VBox vb2 = new VBox(20);
+        Label lb2 = new Label("Room 2:");
+        LightController lc2 = new LightController();
+        FanController fc3 = new FanController();
+        vb2.getChildren().addAll(lb2,lc2.getLayout(),fc3.getLayout());
+        vb2.setPadding(new Insets(10,0,0,100));
+
+        VBox vb3 = new VBox(20);
+        Label lb3 = new Label("Room 3:");
+        LightController lc3 = new LightController();
+        FanController fc4 = new FanController();
+        vb3.getChildren().addAll(lb3,lc3.getLayout(),fc4.getLayout());
+        vb3.setPadding(new Insets(10,0,0,100));
+
+        HBox hb1 = new HBox();
+        hb1.getChildren().addAll(vb1,vb2,vb3);
+        //hb1.setPadding(new Insets(50));
+
+        flowpane.getChildren().addAll(hb1);
         mystage.setScene(myscene);
         mystage.show();
     }
@@ -84,6 +106,7 @@ class LightController extends Controller{
         vb11.setAlignment(Pos.TOP_CENTER);
         vb11.getChildren().addAll(bt1,cb1,l2);
         vb1.getChildren().addAll(new Label(Controller_Name+":"),vb11);
+        vb1.setPadding(new Insets(0,0,0,50));
         return vb1;
     }
 }
@@ -113,6 +136,7 @@ class FanController extends Controller{
         vb11.setAlignment(Pos.TOP_CENTER);
         vb11.getChildren().addAll(bt1,cb1,l2);
         vb1.getChildren().addAll(new Label(Controller_Name+":"),vb11);
+        vb1.setPadding(new Insets(0,0,0,50));
         return vb1;
     }
 }
