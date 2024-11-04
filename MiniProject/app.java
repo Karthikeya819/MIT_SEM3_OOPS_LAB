@@ -8,6 +8,7 @@ import javafx.stage.*;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
 import javafx.collections.*;
+import javafx.scene.paint.*;
 
 
 public class app extends Application{
@@ -17,26 +18,29 @@ public class app extends Application{
     @Override
     public void start(Stage mystage) throws Exception{
         FlowPane flowpane = new FlowPane();
-        Scene myscene = new Scene(flowpane,900,300);
+        Scene myscene = new Scene(flowpane,1100,300);
         mystage.setTitle("Home Automation System");
 
-        Room room1 = new Room("Kitchen");
+        Room room1 = new Room("KITCHEN");
         room1.Add_Controller(new LightController());
         room1.Add_Controller(new FanController());
         VBox vb1 = room1.getLayout();
 
-        Room room2 = new Room("Bed Room");
+        Separator separator1 = new Separator(Orientation.VERTICAL);
+        Separator separator2 = new Separator(Orientation.VERTICAL);
+
+        Room room2 = new Room("BED ROOM");
         room2.Add_Controller(new LightController());
         room2.Add_Controller(new FanController());
         VBox vb2 = room2.getLayout();
 
-        Room room3 = new Room("Hall");
+        Room room3 = new Room("HALL");
         room3.Add_Controller(new LightController());
         room3.Add_Controller(new FanController());
         VBox vb3 = room3.getLayout();
 
         HBox hb1 = new HBox(80);
-        hb1.getChildren().addAll(vb1,vb2,vb3);
+        hb1.getChildren().addAll(vb1,separator1,vb2,separator2,vb3);
 
         flowpane.getChildren().addAll(hb1);
         mystage.setScene(myscene);
@@ -57,7 +61,7 @@ class Controller{
 class LightController extends Controller{
     static int Light_Count = 0;
     LightController(){
-        super("Light-"+(++Light_Count),new String[]{"Low","Medium","High"});
+        super("Light- "+(++Light_Count),new String[]{"Low","Medium","High"});
     }
     VBox getLayout(){
         VBox vb1 = new VBox(5);
@@ -69,12 +73,13 @@ class LightController extends Controller{
             cb1.setVisible(!cb1.isVisible());
             super.State = !super.State;
             bt1.setText((State)?"OFF":"On");
+            bt1.setBackground(new Background(new BackgroundFill((State)?Color.web("#e64e4e"):Color.web("#4fc96f"), CornerRadii.EMPTY, Insets.EMPTY)));
             super.Current_Sate = (cb1.getValue() == null) ? "Null" : cb1.getValue().toString();
-            l2.setText((State)?Controller_Name+" is On,Brightness: "+Current_Sate:Controller_Name+" is Off");
+            l2.setText((State)?Controller_Name+" is On, Brightness: "+Current_Sate:Controller_Name+" is Off");
         });
         cb1.setOnAction(event->{
             super.Current_Sate = (cb1.getValue() == null) ? "Null" : cb1.getValue().toString();
-            l2.setText(Controller_Name+" is On,Brightness: "+Current_Sate);
+            l2.setText(Controller_Name+" is On, Brightness: "+Current_Sate);
         });
         VBox vb11 = new VBox(5);
         vb11.setAlignment(Pos.TOP_CENTER);
@@ -88,7 +93,7 @@ class LightController extends Controller{
 class FanController extends Controller{
     static int Fan_Count = 0;
     FanController(){
-        super("Fan-"+(++Fan_Count),new String[]{"Low","Medium","High"});
+        super("Fan- "+(++Fan_Count),new String[]{"Low","Medium","High"});
     }
     VBox getLayout(){
         VBox vb1 = new VBox(5);
@@ -100,6 +105,7 @@ class FanController extends Controller{
             cb1.setVisible(!cb1.isVisible());
             super.State = !super.State;
             bt1.setText((State)?"OFF":"ON");
+            bt1.setBackground(new Background(new BackgroundFill((State)?Color.web("#e64e4e"):Color.web("#4fc96f"), CornerRadii.EMPTY, Insets.EMPTY)));
             super.Current_Sate = (cb1.getValue() == null) ? "Null" : cb1.getValue().toString();
             l2.setText((State)?Controller_Name+" is On, Speed: "+Current_Sate:Controller_Name+" is Off");
         });
